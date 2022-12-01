@@ -19,7 +19,11 @@
 // THE SOFTWARE.
 /* eslint-disable max-len */
 
+// Intialize globals, extract version
 export {VERSION} from './lib/init';
+
+// Import shaderlib to make sure shader modules are initialized
+export {getProgramManager} from './shaderlib';
 
 // Core Library
 export {COORDINATE_SYSTEM, OPERATION, UNIT} from './lib/constants';
@@ -131,3 +135,9 @@ export type {Effect, PreRenderOptions, PostRenderOptions} from './lib/effect';
 export type {PickingUniforms, ProjectUniforms} from './shaderlib';
 export type {DefaultProps} from './lifecycle/prop-types';
 export type {LayersPassRenderOptions} from './passes/layers-pass';
+
+// INTERNAL, DO NOT USER
+// @deprecated internal do not use
+export {default as _Component} from './lifecycle/component';
+// @deprecated internal do not use
+export {default as _ComponentState} from './lifecycle/component-state';
