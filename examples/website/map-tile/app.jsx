@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback, useState} from 'react';
 import {createRoot} from 'react-dom/client';
 
 import DeckGL from '@deck.gl/react';
@@ -42,6 +42,8 @@ function getTooltip({tile}) {
 }
 
 export default function App({showBorder = false, onTilesLoad = null}) {
+  const [showMap, setShowMap] = useState(true);
+
   const tileLayer = new TileLayer({
     // https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames#Tile_servers
     data: [
@@ -94,8 +96,11 @@ export default function App({showBorder = false, onTilesLoad = null}) {
     }
   });
 
+  const toggleMapVisibility = useCallback(() => setShowMap(!showMap), [showMap]);
+
   return (
     <DeckGL
+      style={{display: showMap ? 'block' : 'none'}}
       layers={[tileLayer]}
       views={new MapView({repeat: true})}
       initialViewState={INITIAL_VIEW_STATE}
@@ -108,6 +113,7 @@ export default function App({showBorder = false, onTilesLoad = null}) {
           OpenStreetMap contributors
         </a>
       </div>
+      <button style={{position: 'absolute'}} onClick={toggleMapVisibility}>Toggle Map</button>
     </DeckGL>
   );
 }
